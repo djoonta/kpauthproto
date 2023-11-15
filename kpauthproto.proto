@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "auth/auth.proto";
+
+package kpauthproto;
+
+option go_package = "github.com/djoonta/kpauthproto";
+
+service AuthService {
+  rpc Login(LoginRequest) returns (LoginResponse) {}
+}
