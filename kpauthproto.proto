@@ -1,11 +1,30 @@
 syntax = "proto3";
 
-import "auth/auth.proto";
-
 package kpauthproto;
+
+import "auth/auth.proto";
+import "role/role.proto";
+import "user/user.proto";
 
 option go_package = "github.com/djoonta/kpauthproto";
 
 service AuthService {
-  rpc Login(LoginRequest) returns (LoginResponse) {}
+  rpc AuthLogin(AuthLoginRequest) returns (AuthLoginResponse) {}
+  rpc AuthRegister(AuthRegisterRequest) returns (AuthRegisterResponse) {}
+}
+
+service RoleService {
+  rpc RoleCreate(RoleCreateRequest) returns (RoleCreateResponse) {}
+  rpc RoleDelete(RoleDeleteRequest) returns (RoleDeleteResponse) {}
+  rpc RoleUpdate(RoleUpdateRequest) returns (RoleUpdateResponse) {}
+  rpc RoleFindID(RoleFindIDRequest) returns (RoleFindIDResponse) {}
+  rpc RoleFindAll(RoleFindAllRequest) returns (RoleFindAllResponse) {}
+}
+
+service UserService {
+  rpc UserFindID(UserFindIDRequest) returns (UserFindIDResponse) {}
+  rpc UserDelete(UserDeleteRequest) returns (UserDeleteResponse) {}
+  rpc UserActivated(UserActivatedRequest) returns (UserActivatedResponse) {}
+  rpc UserDeactivated(UserDeactivatedRequest) returns (UserDeactivatedResponse) {}
+  rpc UserFindAll(UserFindAllRequest) returns (UserFindAllResponse) {}
 }

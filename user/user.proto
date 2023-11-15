@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+import "pagination/pagination.proto";
+
+package kpauthproto;
+
+option go_package = "github.com/djoonta/kpauthproto/user";
+
+message UserInfo {
+  string id = 1;
+  string email = 2;
+  string whatsapp = 3;
+  int32 status = 4;
+  int32 super_admin = 5;
+  string updated_at = 6;
+}
+
+message UserDeleteRequest {
+  string id = 1;
+}
+message UserDeleteResponse {
+  bool success = 1;
+}
+message UserActivatedRequest {
+  string id = 1;
+}
+message UserActivatedResponse {
+  bool success = 1;
+}
+
+message UserDeactivatedRequest {
+  string id = 1;
+}
+message UserDeactivatedResponse {
+  bool success = 1;
+}
+
+message UserFindIDRequest {
+  string id = 1;
+}
+message UserFindIDResponse {
+  UserInfo user_info = 1;
+}
+
+message UserFindAllRequest {
+  string page = 1;
+  string limit = 2;
+}
+message UserFindAllResponse {
+  repeated UserInfo users = 1;
+  PaginationInfo pagination = 2;
+}

@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+import "pagination/pagination.proto";
+
+package kpauthproto;
+
+option go_package = "github.com/djoonta/kpauthproto/role";
+
+
+message RoleInfo {
+  string id = 1;
+  string name = 2;
+}
+
+message RoleCreateRequest {
+  string name = 1;
+}
+message RoleCreateResponse {
+  bool success = 1;
+}
+
+message RoleUpdateRequest {
+  string id = 1;
+  string name = 2;
+}
+message RoleUpdateResponse {
+  bool success = 1;
+}
+
+message RoleDeleteRequest {
+  string id = 1;
+}
+message RoleDeleteResponse {
+  bool success = 1;
+}
+
+message RoleFindIDRequest {
+  string id = 1;
+}
+message RoleFindIDResponse {
+  RoleInfo role_info = 1;
+}
+
+message RoleFindAllRequest {
+  string page = 1;
+  string limit = 2;
+}
+message RoleFindAllResponse {
+  repeated RoleInfo roles = 1;
+  PaginationInfo pagination = 2;
+}

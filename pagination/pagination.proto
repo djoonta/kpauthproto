@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package kpauthproto;
+
+option go_package = "github.com/djoonta/kpauthproto/pagination";
+
+message PaginationInfo {
+  int32 current_page = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+  int32 total_pages = 4;
+  int32 next_page = 5;
+  int32 prev_page = 6;
+  int32 total_page = 7;
+  int32 total_data = 8;
+}
