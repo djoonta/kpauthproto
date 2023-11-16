@@ -49,3 +49,21 @@ message RoleFindAllResponse {
   repeated RoleInfo roles = 1;
   PaginationInfo pagination = 2;
 }
+
+message RoleAssignUserRequest {
+  string role_id = 1;
+  string user_id = 2;
+}
+
+message RoleAssignUserResponse {
+  bool success = 1;
+}
+
+message RoleRevokeUserRequest {
+  string role_id = 1;
+  string user_id = 2;
+}
+
+message RoleRevokeUserResponse {
+  bool success = 1;
+}

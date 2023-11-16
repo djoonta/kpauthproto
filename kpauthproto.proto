@@ -19,6 +19,8 @@ service RoleService {
   rpc RoleUpdate(RoleUpdateRequest) returns (RoleUpdateResponse) {}
   rpc RoleFindID(RoleFindIDRequest) returns (RoleFindIDResponse) {}
   rpc RoleFindAll(RoleFindAllRequest) returns (RoleFindAllResponse) {}
+  rpc RoleAssignUser(RoleAssignUserRequest) returns (RoleAssignUserResponse) {}
+  rpc RoleRevokeUser(RoleRevokeUserRequest) returns (RoleRevokeUserResponse) {}
 }
 
 service UserService {
