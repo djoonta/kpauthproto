@@ -24,6 +24,7 @@ message RoleCreateResponse {
 message RoleUpdateRequest {
   string id = 1;
   string name = 2;
+  string description = 3;
 }
 message RoleUpdateResponse {
   bool success = 1;
