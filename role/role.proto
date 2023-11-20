@@ -10,10 +10,12 @@ option go_package = "github.com/djoonta/kpauthproto/role";
 message RoleInfo {
   string id = 1;
   string name = 2;
+  string description = 3;
 }
 
 message RoleCreateRequest {
   string name = 1;
+  string description = 2;
 }
 message RoleCreateResponse {
   bool success = 1;
