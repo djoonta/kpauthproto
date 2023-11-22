@@ -11,6 +11,7 @@ option go_package = "github.com/djoonta/kpauthproto";
 service AuthService {
   rpc AuthLogin(AuthLoginRequest) returns (AuthLoginResponse) {}
   rpc AuthRegister(AuthRegisterRequest) returns (AuthRegisterResponse) {}
+  rpc AuthForgotPassword(AuthForgotPasswordRequest) returns(AuthForgotPasswordResponse){}
 }
 
 service RoleService {
