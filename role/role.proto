@@ -10,10 +10,12 @@ option go_package = "github.com/djoonta/kpauthproto/role";
 message RoleInfo {
   string id = 1;
   string name = 2;
+  string description = 3;
 }
 
 message RoleCreateRequest {
   string name = 1;
+  string description = 2;
 }
 message RoleCreateResponse {
   bool success = 1;
@@ -22,6 +24,7 @@ message RoleCreateResponse {
 message RoleUpdateRequest {
   string id = 1;
   string name = 2;
+  string description = 3;
 }
 message RoleUpdateResponse {
   bool success = 1;
@@ -48,4 +51,22 @@ message RoleFindAllRequest {
 message RoleFindAllResponse {
   repeated RoleInfo roles = 1;
   PaginationInfo pagination = 2;
+}
+
+message RoleAssignUserRequest {
+  string role_id = 1;
+  string user_id = 2;
+}
+
+message RoleAssignUserResponse {
+  bool success = 1;
+}
+
+message RoleRevokeUserRequest {
+  string role_id = 1;
+  string user_id = 2;
+}
+
+message RoleRevokeUserResponse {
+  bool success = 1;
 }

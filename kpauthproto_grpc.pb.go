@@ -188,6 +188,8 @@ type RoleServiceClient interface {
 	RoleUpdate(ctx context.Context, in *role.RoleUpdateRequest, opts ...grpc.CallOption) (*role.RoleUpdateResponse, error)
 	RoleFindID(ctx context.Context, in *role.RoleFindIDRequest, opts ...grpc.CallOption) (*role.RoleFindIDResponse, error)
 	RoleFindAll(ctx context.Context, in *role.RoleFindAllRequest, opts ...grpc.CallOption) (*role.RoleFindAllResponse, error)
+	RoleAssignUser(ctx context.Context, in *role.RoleAssignUserRequest, opts ...grpc.CallOption) (*role.RoleAssignUserResponse, error)
+	RoleRevokeUser(ctx context.Context, in *role.RoleRevokeUserRequest, opts ...grpc.CallOption) (*role.RoleRevokeUserResponse, error)
 }
 
 type roleServiceClient struct {
@@ -243,6 +245,24 @@ func (c *roleServiceClient) RoleFindAll(ctx context.Context, in *role.RoleFindAl
 	return out, nil
 }
 
+func (c *roleServiceClient) RoleAssignUser(ctx context.Context, in *role.RoleAssignUserRequest, opts ...grpc.CallOption) (*role.RoleAssignUserResponse, error) {
+	out := new(role.RoleAssignUserResponse)
+	err := c.cc.Invoke(ctx, "/kpauthproto.RoleService/RoleAssignUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *roleServiceClient) RoleRevokeUser(ctx context.Context, in *role.RoleRevokeUserRequest, opts ...grpc.CallOption) (*role.RoleRevokeUserResponse, error) {
+	out := new(role.RoleRevokeUserResponse)
+	err := c.cc.Invoke(ctx, "/kpauthproto.RoleService/RoleRevokeUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RoleServiceServer is the server API for RoleService service.
 // All implementations must embed UnimplementedRoleServiceServer
 // for forward compatibility
@@ -252,6 +272,8 @@ type RoleServiceServer interface {
 	RoleUpdate(context.Context, *role.RoleUpdateRequest) (*role.RoleUpdateResponse, error)
 	RoleFindID(context.Context, *role.RoleFindIDRequest) (*role.RoleFindIDResponse, error)
 	RoleFindAll(context.Context, *role.RoleFindAllRequest) (*role.RoleFindAllResponse, error)
+	RoleAssignUser(context.Context, *role.RoleAssignUserRequest) (*role.RoleAssignUserResponse, error)
+	RoleRevokeUser(context.Context, *role.RoleRevokeUserRequest) (*role.RoleRevokeUserResponse, error)
 	mustEmbedUnimplementedRoleServiceServer()
 }
 
@@ -273,6 +295,12 @@ func (UnimplementedRoleServiceServer) RoleFindID(context.Context, *role.RoleFind
 }
 func (UnimplementedRoleServiceServer) RoleFindAll(context.Context, *role.RoleFindAllRequest) (*role.RoleFindAllResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RoleFindAll not implemented")
+}
+func (UnimplementedRoleServiceServer) RoleAssignUser(context.Context, *role.RoleAssignUserRequest) (*role.RoleAssignUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RoleAssignUser not implemented")
+}
+func (UnimplementedRoleServiceServer) RoleRevokeUser(context.Context, *role.RoleRevokeUserRequest) (*role.RoleRevokeUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RoleRevokeUser not implemented")
 }
 func (UnimplementedRoleServiceServer) mustEmbedUnimplementedRoleServiceServer() {}
 
@@ -377,6 +405,42 @@ func _RoleService_RoleFindAll_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RoleService_RoleAssignUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(role.RoleAssignUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RoleServiceServer).RoleAssignUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kpauthproto.RoleService/RoleAssignUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RoleServiceServer).RoleAssignUser(ctx, req.(*role.RoleAssignUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RoleService_RoleRevokeUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(role.RoleRevokeUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RoleServiceServer).RoleRevokeUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kpauthproto.RoleService/RoleRevokeUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RoleServiceServer).RoleRevokeUser(ctx, req.(*role.RoleRevokeUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // RoleService_ServiceDesc is the grpc.ServiceDesc for RoleService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -403,6 +467,14 @@ var RoleService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RoleFindAll",
 			Handler:    _RoleService_RoleFindAll_Handler,
+		},
+		{
+			MethodName: "RoleAssignUser",
+			Handler:    _RoleService_RoleAssignUser_Handler,
+		},
+		{
+			MethodName: "RoleRevokeUser",
+			Handler:    _RoleService_RoleRevokeUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
