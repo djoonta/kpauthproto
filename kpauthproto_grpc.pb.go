@@ -27,6 +27,7 @@ const _ = grpc.SupportPackageIsVersion7
 type AuthServiceClient interface {
 	AuthLogin(ctx context.Context, in *auth.AuthLoginRequest, opts ...grpc.CallOption) (*auth.AuthLoginResponse, error)
 	AuthRegister(ctx context.Context, in *auth.AuthRegisterRequest, opts ...grpc.CallOption) (*auth.AuthRegisterResponse, error)
+	AuthForgotPassword(ctx context.Context, in *auth.AuthForgotPasswordRequest, opts ...grpc.CallOption) (*auth.AuthForgotPasswordResponse, error)
 }
 
 type authServiceClient struct {
@@ -55,12 +56,22 @@ func (c *authServiceClient) AuthRegister(ctx context.Context, in *auth.AuthRegis
 	return out, nil
 }
 
+func (c *authServiceClient) AuthForgotPassword(ctx context.Context, in *auth.AuthForgotPasswordRequest, opts ...grpc.CallOption) (*auth.AuthForgotPasswordResponse, error) {
+	out := new(auth.AuthForgotPasswordResponse)
+	err := c.cc.Invoke(ctx, "/kpauthproto.AuthService/AuthForgotPassword", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility
 type AuthServiceServer interface {
 	AuthLogin(context.Context, *auth.AuthLoginRequest) (*auth.AuthLoginResponse, error)
 	AuthRegister(context.Context, *auth.AuthRegisterRequest) (*auth.AuthRegisterResponse, error)
+	AuthForgotPassword(context.Context, *auth.AuthForgotPasswordRequest) (*auth.AuthForgotPasswordResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -73,6 +84,9 @@ func (UnimplementedAuthServiceServer) AuthLogin(context.Context, *auth.AuthLogin
 }
 func (UnimplementedAuthServiceServer) AuthRegister(context.Context, *auth.AuthRegisterRequest) (*auth.AuthRegisterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AuthRegister not implemented")
+}
+func (UnimplementedAuthServiceServer) AuthForgotPassword(context.Context, *auth.AuthForgotPasswordRequest) (*auth.AuthForgotPasswordResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AuthForgotPassword not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 
@@ -123,6 +137,24 @@ func _AuthService_AuthRegister_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_AuthForgotPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(auth.AuthForgotPasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).AuthForgotPassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kpauthproto.AuthService/AuthForgotPassword",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).AuthForgotPassword(ctx, req.(*auth.AuthForgotPasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -137,6 +169,10 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AuthRegister",
 			Handler:    _AuthService_AuthRegister_Handler,
+		},
+		{
+			MethodName: "AuthForgotPassword",
+			Handler:    _AuthService_AuthForgotPassword_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

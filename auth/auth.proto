@@ -25,3 +25,12 @@ message AuthRegisterRequest {
 message AuthRegisterResponse {
   bool success = 1;
 }
+
+message AuthForgotPasswordRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message AuthForgotPasswordResponse {
+  bool success = 1;
+}
