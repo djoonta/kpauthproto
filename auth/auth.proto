@@ -15,6 +15,7 @@ message AuthLoginResponse {
   string status = 3;
   string role_name = 4;
   string token = 5;
+  string user_id = 6;
 }
 
 message AuthRegisterRequest {
