@@ -48,5 +48,5 @@ message UserFindAllRequest {
 }
 message UserFindAllResponse {
   repeated UserInfo users = 1;
-  PaginationInfo pagination = 2;
+  AuthPaginationInfo pagination = 2;
 }

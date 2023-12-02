@@ -50,7 +50,7 @@ message RoleFindAllRequest {
 }
 message RoleFindAllResponse {
   repeated RoleInfo roles = 1;
-  PaginationInfo pagination = 2;
+  AuthPaginationInfo pagination = 2;
 }
 
 message RoleAssignUserRequest {
