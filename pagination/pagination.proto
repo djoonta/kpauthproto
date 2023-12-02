@@ -4,7 +4,7 @@ package kpauthproto;
 
 option go_package = "github.com/djoonta/kpauthproto/pagination";
 
-message PaginationInfo {
+message AuthPaginationInfo {
   int32 current_page = 1;
   int32 limit = 2;
   int32 offset = 3;
