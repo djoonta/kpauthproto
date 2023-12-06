@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-import "pagination/pagination.proto";
+import "auth_pagination/auth_pagination.proto";
 
 package kpauthproto;
 
