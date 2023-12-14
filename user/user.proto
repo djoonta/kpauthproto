@@ -7,12 +7,18 @@ package kpauthproto;
 option go_package = "github.com/djoonta/kpauthproto/user";
 
 message UserInfo {
-  string id = 1;
-  string email = 2;
-  string whatsapp = 3;
-  int32 status = 4;
-  int32 super_admin = 5;
-  string updated_at = 6;
+  string id = 1;  // Use string for UUID
+  string name = 2;
+  string identity_number = 3;
+  string phone = 4;
+  string email = 5;
+  string address = 6;
+  string status = 7;
+  string token = 8;
+  string device_token = 9;
+  string device_id = 10;
+  string created_at = 11;
+  string updated_at = 12;
 }
 
 message UserDeleteRequest {
